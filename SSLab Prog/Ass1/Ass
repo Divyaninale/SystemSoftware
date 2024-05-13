@@ -1,0 +1,30 @@
+
+%{
+	#include<stdio.h>
+	
+
+%}
+
+%%
+"//".*"\n" {printf("\nSingle Line Comment=%s",yytext);}
+[#] {printf("\nPreprocessor Statment =%s",yytext);}
+[a-z]*[.][h] {printf(" \nHeader Files=%s",yytext);}
+include|void|main { printf("\nKeyword=%s",yytext);}
+","|";"|"("|")"|"{"|"}"|"<"|">" { printf("\nPunctations=%s",yytext);}
+"/*".*"*/" {printf("\n Multiline Comment=%s",yytext);}
+[a-zA-Z][A-Za-Z0-9_] {printf("
+%%
+
+int yywrap()
+{
+	return 1;
+}
+int main()
+{
+ yyin=fopen("Ass2.c","r");
+ yylex();
+ 
+ return 1;
+}
+ 
+
